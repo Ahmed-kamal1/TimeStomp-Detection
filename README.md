@@ -1,4 +1,4 @@
-### Timestomp Detector Tool: Professional Overview
+## Timestomp-Detector Tool
 
 **Overview**  
 Timestomp Detector is an advanced forensic analysis tool designed to identify potential timestomping artifacts—manipulations of file timestamps to obscure malicious activity. This tool leverages a suite of specialized scripts and external forensic utilities to analyze various Windows forensic artifacts, consolidating data into actionable insights. Timestomp Detector automates time comparison checks across metadata sources such as the NTFS Master File Table (MFT), AppCompatCache, Amcache, and $I30 index entries. It is an essential tool for investigators tackling timestamp tampering in Windows systems.
