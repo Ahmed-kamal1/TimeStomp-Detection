@@ -163,11 +163,7 @@ This project relies on several external tools to perform specific tasks. These t
    - **Description:** A command-line tool for parsing the Master File Table (MFT).  
    - **Download:** [MFTECmd Official Source](https://ericzimmerman.github.io/#!index.md)  
    
-4. **nTimestomp**  
-   - **Description:** A tool for forensic manipulation of timestamps.  
-   - **Download:** [nTimestomp Official Source](https://github.com/limbenjamin/nTimetools)  
-   
-5. **Velociraptor**  
+4. **Velociraptor**  
    - **Description:** A powerful, open-source tool for endpoint visibility and collection of forensic artifacts.  
    - **Download:** [Velociraptor Official Source](https://github.com/Velocidex/velociraptor/releases/tag/v0.73)  
 
@@ -192,4 +188,7 @@ This project relies on several external tools to perform specific tasks. These t
    - Update the `base_directories` or `user_directories` lists in the script to include or exclude target folders as needed.
 
 4. **Error Prevention**: Verify that all specified paths (tools, files, and output directories) are correct and accessible before running the script to avoid execution errors.
-# TimeStomp-Detection
+5.  **nTimestomp**  
+   - **Description:** A tool for forensic manipulation of timestamps.  
+   - **Download:** [nTimestomp Official Source](https://github.com/limbenjamin/nTimetools)  
+
