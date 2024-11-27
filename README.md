@@ -6,7 +6,7 @@ Timestomp Detector is an advanced forensic analysis tool designed to identify po
 **Demo**:  
 Below is a GIF showcasing the tool's GUI and workflow:
 
-![Timestomp Detector Demo](demo.gif)
+![Timestomp Detector Demo](Demo.gif)
 
 
 ---
