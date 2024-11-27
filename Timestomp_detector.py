@@ -4,10 +4,10 @@ import subprocess
 from threading import Thread
 import os
 
-# Function to run scripts with real-time logging
+
 def run_scripts(toolsdir, filesdir, outdir, partition, is_it_os, log_widget):
     try:
-        # Define the scripts to execute in sequence
+      
         scripts = [
             ("mft.py", ["-toolsdir", toolsdir, "-filesdir", filesdir, "-outdir", outdir]),
             ("appcompatcache.py", ["-toolsdir", toolsdir, "-filesdir", filesdir, "-outdir", outdir]),
@@ -25,23 +25,22 @@ def run_scripts(toolsdir, filesdir, outdir, partition, is_it_os, log_widget):
             log_widget.insert(tk.END, f"Running {script} with arguments: {args}\n")
             log_widget.update_idletasks()
 
-            # Use subprocess.Popen to capture real-time output with full environment
+            
             process = subprocess.Popen(
                 ["python", script, *args],
                 stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,  # Merge stderr into stdout for unified output
+                stderr=subprocess.STDOUT, 
                 text=True,
-                env={**os.environ, "PYTHONUNBUFFERED": "1"},  # Full environment with unbuffered output
+                env={**os.environ, "PYTHONUNBUFFERED": "1"},  
             )
 
-            # Read stdout line by line
             while True:
                 output = process.stdout.readline()
                 if output == "" and process.poll() is not None:
                     break
                 if output:
                     log_widget.insert(tk.END, output)
-                    log_widget.see(tk.END)  # Scroll to the end
+                    log_widget.see(tk.END)  
                     log_widget.update_idletasks()
 
         log_widget.insert(tk.END, "All scripts completed.\n")
@@ -51,32 +50,31 @@ def run_scripts(toolsdir, filesdir, outdir, partition, is_it_os, log_widget):
         log_widget.insert(tk.END, f"Error occurred: {e}\n")
         log_widget.update_idletasks()
 
-# Function to run check.py directly
+
 def run_check(outdir, log_widget):
     try:
         log_widget.insert(tk.END, "Running check.py...\n")
         log_widget.update_idletasks()
 
-        # Execute check.py with the required argument
         process = subprocess.Popen(
             ["python", "check.py", "-outdir", outdir],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             bufsize=1,
-            universal_newlines=True,  # Ensures text mode for line-by-line reading
+            universal_newlines=True,  
         )
 
-        # Capture real-time output (including tqdm)
+      
         while True:
             output = process.stdout.readline()
             if output == "" and process.poll() is not None:
                 break
             if output:
                 log_widget.insert(tk.END, output)
-                log_widget.see(tk.END)  # Scroll to the end
+                log_widget.see(tk.END)  
                 log_widget.update_idletasks()
 
-        # Capture any remaining stderr
+     
         err = process.stderr.read()
         if err:
             log_widget.insert(tk.END, err)
@@ -92,7 +90,7 @@ def run_check(outdir, log_widget):
         log_widget.see(tk.END)
         log_widget.update_idletasks()
 
-# Function to start execution of all scripts
+
 def start_execution(toolsdir_var, filesdir_var, outdir_var, partition_var, is_it_os_var, log_widget):
     toolsdir = toolsdir_var.get()
     filesdir = filesdir_var.get()
@@ -106,27 +104,26 @@ def start_execution(toolsdir_var, filesdir_var, outdir_var, partition_var, is_it
 
     Thread(target=run_scripts, args=(toolsdir, filesdir, outdir, partition, is_it_os, log_widget), daemon=True).start()
 
-# Function to browse for directories
+
 def browse_directory(entry_var):
     directory = filedialog.askdirectory()
     if directory:
         entry_var.set(directory)
 
-# Create the main GUI
+
 def create_gui():
     root = tk.Tk()
     root.title("Script Executor")
-    root.geometry("1100x700")  # Fixed window size
-    root.resizable(False, False)  # Prevent resizing
+    root.geometry("1100x700")  
+    root.resizable(False, False)  
 
-    # Variables for input fields
     toolsdir_var = tk.StringVar()
     filesdir_var = tk.StringVar()
     outdir_var = tk.StringVar()
     partition_var = tk.StringVar()
     is_it_os_var = tk.StringVar()
 
-    # Input fields and labels
+
     inputs = [
         ("Tools Directory (-toolsdir):", toolsdir_var),
         ("Files Directory (-filesdir):", filesdir_var),
@@ -136,14 +133,13 @@ def create_gui():
     ]
 
     for idx, (label, var) in enumerate(inputs):
-        # Create label
+        
         tk.Label(root, text=label, font=("Arial", 12)).grid(row=idx, column=0, padx=10, pady=5, sticky="e")
 
-        # Create entry field
+        
         entry = tk.Entry(root, textvariable=var, width=60, font=("Arial", 10))
         entry.grid(row=idx, column=1, padx=5, pady=5)
 
-        # Add "Browse" button for directory fields
         if label in ["Tools Directory (-toolsdir):", "Files Directory (-filesdir):", "Output Directory (-outdir):"]:
             browse_button = tk.Button(
                 root,
@@ -158,7 +154,6 @@ def create_gui():
             )
             browse_button.grid(row=idx, column=2, padx=(5, 10), pady=5, sticky="w")
 
-    # Log output widget
     tk.Label(root, text="Logs:", font=("Arial", 12, "bold")).grid(row=len(inputs), column=0, padx=10, pady=5, sticky="nw")
     log_widget = tk.Text(
         root, height=30, width=120, bg="black", fg="white", insertbackground="white", font=("Consolas", 10)
@@ -166,7 +161,6 @@ def create_gui():
     log_widget.grid(row=len(inputs), column=1, columnspan=2, padx=10, pady=5)
     log_widget.configure(state="normal")
 
-    # Run all scripts button
     tk.Button(
         root,
         text="Run Scripts",
@@ -181,5 +175,5 @@ def create_gui():
    
     root.mainloop()
 
-# Run the GUI
+
 create_gui()
