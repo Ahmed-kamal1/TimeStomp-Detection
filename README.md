@@ -8,9 +8,7 @@ Below is a GIF showcasing the tool's GUI and workflow:
 
 ![Timestomp Detector Demo](demo.gif)
 
----
 
-By placing the GIF here, you provide readers with an immediate visual context, making the technical details more relatable as they continue reading.
 ---
 
 ### Key Features and Checks
